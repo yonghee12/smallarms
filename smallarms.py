@@ -63,8 +63,8 @@ def upload_file():
 			print(filename, DAY)
 			filename = "rw_report.xlsx"
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			return redirect(url_for('upload_file',
-									filename=filename))
+			# return redirect(url_for('upload_file', filename=filename))
+			return redirect(url_for('run_hr'))
 	return render_template('hcc_daily_rewards.html', page_title="hcc_rewards", DAY=DAY)
 
 @app.route("/reward_result", methods=['GET', 'POST'])
