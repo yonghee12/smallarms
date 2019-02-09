@@ -43,6 +43,9 @@ def about():
 	return render_template('about.html', page_title='About')
 
 @app.route("/")
+def root():
+	return redirect(url_for('upload_file'))
+
 @app.route("/reward", methods=['GET', 'POST'])
 def upload_file():
 	global DAY
@@ -75,7 +78,7 @@ def run_hr():
 
 # hr.run("190207")
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
 	app.run(debug=True)
 
 # UPLOAD_FOLDER
