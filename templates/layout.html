@@ -1,13 +1,43 @@
-<html>
-	<head>
-		{% if page_title %}
-        <title>Small Arms - {{ page_title }}</title>
-		{% else %}
-        <title>Small Arms</title>
-		{% endif %}
-	</head>
-	<body>
-        {% block contents %}
-        {% endblock %}
-	</body>
+<!DOCTYPE html>
+<html lang="ko=kr">
+
+<head>
+	<meta charset="utf-8">
+	{% if page_title %}
+	<title>Small Arms - {{ page_title }}</title>
+	{% else %}
+	<title>Small Arms</title>
+	{% endif %}
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Favicons -->
+	<link href="static/img/favicon.png" rel="icon">
+	<link href="static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Oswald:400,300,700|EB+Garamond" rel="stylesheet">
+
+	<!-- Bootstrap CSS File -->
+	<link href="static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Libraries CSS Files -->
+	<link href="static/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Main Stylesheet File -->
+	<link href="static/css/style.css" rel="stylesheet">
+
+	<!-- =======================================================
+    Template Name: Minimal
+    Template URL: https://templatemag.com/minimal-bootstrap-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+{% block contents %}
+{% endblock %}
+
 </html>

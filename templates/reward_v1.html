@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block contents %}
+
+<body>
+  <h1>HCC Daily Rewards - 파일을 업로드하세요</h1>
+  <!-- <form method=post action="http://localhost:5000/reward_result" enctype=multipart/form-data> -->
+  <form method=post enctype=multipart/form-data> <input type=file name=file>
+    <br><br>
+    <input type=submit value=Upload>
+  </form>
+
+</body>
+{% endblock contents %}
