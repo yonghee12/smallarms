@@ -34,7 +34,6 @@ posts = [
 	}
 ]
 
-@app.route("/")
 @app.route("/home")
 def home():
 	return render_template('home.html', posts=posts)
@@ -43,6 +42,7 @@ def home():
 def about():
 	return render_template('about.html', page_title='About')
 
+@app.route("/")
 @app.route("/reward", methods=['GET', 'POST'])
 def upload_file():
 	global DAY
