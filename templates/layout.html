@@ -1,0 +1,13 @@
+<html>
+	<head>
+		{% if page_title %}
+        <title>Small Arms - {{ page_title }}</title>
+		{% else %}
+        <title>Small Arms</title>
+		{% endif %}
+	</head>
+	<body>
+        {% block contents %}
+        {% endblock %}
+	</body>
+</html>
