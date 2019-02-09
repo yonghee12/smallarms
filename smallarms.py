@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 
 import hcc_reward as hr
 
+DAY = ""
 UPLOAD_FOLDER = './user_upload'
 ALLOWED_EXTENSIONS = set(['xlsx'])
 
@@ -44,6 +45,7 @@ def about():
 
 @app.route("/reward", methods=['GET', 'POST'])
 def upload_file():
+	global DAY
 	if request.method == 'POST':
 		# check if the post request has the file part
 		if 'file' not in request.files:
@@ -56,16 +58,20 @@ def upload_file():
 			flash('No selected file')
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
-			# filename = secure_filename(file.filename)
+			filename = secure_filename(file.filename)
+			DAY = filename[-11:-5]
+			print(filename, DAY)
 			filename = "rw_report.xlsx"
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			return redirect(url_for('upload_file',
 									filename=filename))
-	return render_template('hcc_daily_rewards.html', page_title="hcc_rewards")
+	return render_template('hcc_daily_rewards.html', page_title="hcc_rewards", DAY=DAY)
 
 @app.route("/reward_result", methods=['GET', 'POST'])
 def run_hr():
-	return render_template('reward_result.html', hr=hr, print=print)
+	global DAY
+	print(DAY)
+	return render_template('reward_result.html', hr=hr, DAY=DAY)
 
 # hr.run("190207")
 
