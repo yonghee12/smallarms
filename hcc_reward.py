@@ -78,13 +78,14 @@ def run(day):
         f.write(body)
         f.close()
 
-        print('{}_RW.txt'.format(day), '생성 완료', '\n')
+        print('RW.txt'.format(day), '생성 완료', '\n')
 
     except FileNotFoundError as e:
         print(e)
         print("해당 리포트가 없습니다.")
+        return "잘못된 리포트입니다."
 
-    print(body)
+    # print(body)
     
     body = body.replace("\n", "<br>")
     return body

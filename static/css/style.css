@@ -6,7 +6,7 @@
 */
 
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-font-family: 'Noto Sans KR', sans-serif;
+/* font-family: 'Noto Sans KR', sans-serif; */
 
 body {
   background-color: #f2f2f2;
@@ -110,7 +110,7 @@ hr {
   font-weight: 300;
   font-family: 'Noto Sans KR', sans-serif;
   /* font-family: 'EB Garamond', serif; */
-  /* font-style: oblique; */
+  font-style: oblique;
 }
 
 #headerwrap h4 {
