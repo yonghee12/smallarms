@@ -78,7 +78,7 @@ def run(day):
         f.write(body)
         f.close()
 
-        print('RW.txt'.format(day), '생성 완료', '\n')
+        print('RW.txt'.format(day), '생성 완료')
 
     except FileNotFoundError as e:
         print(e)

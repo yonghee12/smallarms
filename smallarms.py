@@ -38,17 +38,18 @@ def reward():
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
 			DAY = filename[-11:-5]
-			print(filename, DAY)
+			print("DAY0:", filename, DAY)
 			filename = "rw_report.xlsx"
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			# return redirect(url_for('upload_file', filename=filename))
+			print("DAY1:", DAY)
 			return redirect(url_for('run_hr'))
 	return render_template('reward_v2.html', page_title="hcc_rewards", DAY=DAY)
 
 @app.route("/reward_result", methods=['GET', 'POST'])
 def run_hr():
 	global DAY
-	print(DAY)
+	print("DAY2:", DAY)
 	return render_template('reward_result.html', hr=hr, DAY=DAY)
 
 
