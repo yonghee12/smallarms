@@ -3,5 +3,8 @@ __pycache__/
 .vscode/
 *.code-workspace
 .env/
+env/
+envs/
+.envs/
 .DS_Store
 user_upload/

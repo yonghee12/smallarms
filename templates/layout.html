@@ -2,6 +2,19 @@
 <html lang="ko=kr">
 
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134231839-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-134231839-1');
+	</script>
+
 	<meta charset="utf-8">
 	{% if page_title %}
 	<title>Small Arms - {{ page_title }}</title>
@@ -11,7 +24,7 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="" name="keywords">
 	<meta content="" name="description">
-	
+
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Favicons -->
 	<link href="static/img/favicon.png" rel="icon">
