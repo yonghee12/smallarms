@@ -1,4 +1,5 @@
 def run(day):
+    print('hr.run once')
     path = './user_upload/'
     rw_file = path + 'rw_report.xlsx'
 

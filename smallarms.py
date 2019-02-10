@@ -43,10 +43,10 @@ def reward():
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			# return redirect(url_for('upload_file', filename=filename))
 			print("DAY1:", DAY)
-			return redirect(url_for('run_hr'))
+			return redirect('/reward_result', code=301)
 	return render_template('reward_v2.html', page_title="hcc_rewards")
 
-@app.route("/reward_result", methods=['GET', 'POST'])
+@app.route("/reward_result", methods=['GET'])
 def run_hr():
 	global DAY
 	print("DAY2:", DAY)
