@@ -3,7 +3,7 @@ from flask import Flask, render_template, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import hcc_reward as hr
 
-DAY = ""
+DAY = "1"
 UPLOAD_FOLDER = './user_upload'
 ALLOWED_EXTENSIONS = set(['xlsx'])
 
