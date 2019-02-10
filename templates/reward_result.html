@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block contents %}
+
 {% set report = hr.run(DAY) %}
 
 <body>
@@ -75,13 +76,4 @@
     </div>
   </div>
 </div>
-
-<!-- JavaScript Libraries -->
-<script src="static/lib/jquery/jquery.min.js"></script>
-<script src="static/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="static/lib/php-mail-form/validate.js"></script>
-<script src="static/lib/easing/easing.min.js"></script>
-
-<!-- Template Main Javascript File -->
-<script src="static/js/main.js"></script>
 {% endblock contents %}
