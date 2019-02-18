@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-          <form method=post enctype=multipart/form-data class="contact-form">
+          <form onsubmit="ga('send', 'event', '리포트텍스트', '생성', '리워드리포트');" method=post enctype=multipart/form-data class="contact-form">
 
             <div class="form-group">
               <label for="filename">파일 업로드</label>
@@ -36,13 +36,9 @@
               <div class="validate"></div>
             </div>
 
-            <div class="loading"></div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-
             <div class="form-send">
-              <button type="submit" class="btn btn-large" 
-              onclick="ga('send', 'event', '리포트텍스트', '생성', '리워드리포트');">텍스트 생성하기</button>
+              <button type="submit" class="btn btn-large" onclick="ga('send', 'event', '리포트텍스트', '생성', '리워드리포트');">텍스트
+                생성하기</button>
 
             </div>
 
