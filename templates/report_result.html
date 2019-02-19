@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block contents %}
 
-{% set report = hr.run(DAY) %}
+{% set report = hcc.run(medium, day, week) %}
 
 <body>
   <!-- ========== ABOUT SECTION ========== -->
@@ -9,7 +9,7 @@
   <div id="f">
     <div class="container">
       <div class="row">
-        <h3>리워드 광고 리포트 - {{ DAY }}</h3>
+        <h3>{{ medium.upper() }} 광고 리포트 - {{ day }}</h3>
         <br><br>
         <div class="col-lg-6 col-lg-offset-3">
           <div type="text/html">

@@ -1,9 +1,9 @@
 import os
 from flask import Flask, render_template, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
-import hcc_reward as hr
+import hcc_main as hcc
+# import hcc_contents as cr
 
-DAY = "1"
 UPLOAD_FOLDER = './user_upload'
 ALLOWED_EXTENSIONS = set(['xlsx'])
 
@@ -23,7 +23,6 @@ def root():
 
 @app.route("/report", methods=['GET', 'POST'])
 def report():
-	global DAY
 	if request.method == 'POST':
 		# check if the post request has the file part
 		if 'file' not in request.files:
@@ -37,24 +36,46 @@ def report():
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
-			DAY = filename[-11:-5]
+			week = request.form.get('week')
 			day = filename[-11:-5]
-			print("DAY0:", filename, DAY, day)
-			filename = "rw_report.xlsx"
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			# return redirect(url_for('upload_file', filename=filename))
-			print("DAY1:", DAY, day)
-			return redirect(url_for('run_hr', day=day), code=301)
+			print('DAY1:', day)
+			print("FILENAME:", filename)
+			
+			if "Reward" in filename:
+				print('rw')
+				filename = "report.xlsx"
+				print('DAY2:', day)
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				return redirect(url_for('run_hcc', day=day, medium='rw'), code=301)
+			elif "Youtube" in filename:
+				print('yt')
+				filename = "report.xlsx"
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				print('DAY2:', day)
+				return redirect(url_for('run_hcc', day=day, medium='yt', week=week), code=301)
+			elif "Instagram" in filename:
+				print('ig')
+				filename = "report.xlsx"
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				print('DAY2:', day)
+				return redirect(url_for('run_hcc', day=day, medium='ig', week=week), code=301)
+			elif "Facebook" in filename:
+				print('fb')
+				filename = "report.xlsx"
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				print('DAY2:', day)
+				return redirect(url_for('run_hcc', day=day, medium='fb', week=week), code=301)
+
 	return render_template('report.html', page_title="hcc_rewards")
 
-@app.route("/report_result/<day>", methods=['GET'])
-def run_hr(day):
-	global DAY
-	print("DAY2:", DAY)
+@app.route("/report_result", methods=['GET'])
+def run_hcc():
+	week = request.args.get('week')
+	medium = request.args.get('medium')
+	day = request.args.get('day')
+	print('RUN_HCC', day, medium)
 	print("DAY3:", day)
-	DAY = day
-	return render_template('report_result.html', hr=hr, DAY=DAY)
-
+	return render_template('report_result.html', hcc=hcc, day=day, medium=medium, week=week)
 
 # @app.route("/test", methods=['GET', 'POST'])
 # def test():
