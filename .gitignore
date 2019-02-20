@@ -10,12 +10,11 @@ __pycache__/
 *.py[cod]
 
 #envs
-env_req.txt
-.env/
-env/
-envs/
-.envs/
-.testenv/
+.*env*/
 
 #garbage
 .DS_Store
+
+#test
+test.py
+*.ipynb

@@ -242,54 +242,70 @@ def fb(day, path, week, today, yesterday):
 
 
 def rw(day, path, today, yesterday):
+    def rw_colname(columns):
+        dic = {
+            'CPI' : "인스타그램",
+            "CPY" : "유튜브",
+            "CPL" : "페이스북",
+        }
+        new_columns = []
+        for colname in columns:
+            for key in dic.keys():
+                if key in colname:
+                    new_columns.append("{} - {}".format(dic[key], colname))
+        return new_columns
     try:
         filepath = path + 'report.xlsx'
-        rw = pd.read_excel(filepath, sheet_name = '매체별효율_{}월'.format(today.month), header = 3)
-        rw = rw.iloc[:, 1:4]
-        rw = rw.set_index('플랫폼')
+        rw = pd.read_excel(filepath, sheet_name = '매체별효율_{}월'.format(today.month), header = 4)
+        rw = rw.iloc[:, 1:6]
+        rw = rw.set_index('매체명/상품')
+        rw.columns = rw_colname(rw.columns)
+        rw = rw.dropna(axis=0, how='all')
+        rw = rw.fillna(axis=1, method='ffill')
 
         df = rw
 
         gubun = ''
         num = 1
-        body = """{y}년 {m}월 {d}일 인스타그램, 유튜브 리워드광고 Daily Report 전달드립니다.
+        body = """{y}년 {m}월 {d}일 리워드광고 Daily Report 전달드립니다.
 리포트는 전일({ym}월 {yd}일)까지 수치 기입하였습니다. 참고 부탁드립니다.
 
 """.format(
-        y = today.year,
-        m = today.month,
-        d = today.day,
-        ym = yesterday.month,
-        yd = yesterday.day,
-        )
+y = today.year,
+m = today.month,
+d = today.day,
+ym = yesterday.month,
+yd = yesterday.day,
+)
 
         media = df.columns
         for idx, medium in enumerate(media):
-            element = """{num}. {medium} - {product}
+            element = """{num}. {medium}
 
-<지표 성과>
-· 집행 기간 : {aa}
-· 일일 전환수 : {bb:,}
-· 일일 실전환수 : {cc:,}
-· 당일 잔존율 : {dd:.2%}
-· {m}월 잔존율 : {ee:.2%}
-· {m}월 목표 달성율 : {ff:.2%}
+        <지표 성과>
+        · 집행 기간 : {aa}
+        · 일일 전환수 : {bb:,}
+        · 일일 실전환수 : {cc:,}
+        · 당일 잔존율 : {dd:.2%}
+        · {m}월 잔존율 : {ee:.2%}
+        · {m}월 목표 달성율 : {ff:.2%}
 
-<운영 코멘트>
+        <운영 코멘트>
+        · 일일 전환수 {bb:,}회로 데일리캡 .. 수치 보였습니다.
+        · 
+        · 
 
-""".format(
+        """.format(
                 num = num,
                 medium = medium,
                 m = today.month,
-                product = df.loc['매체명/상품', medium],
                 aa = df.loc['(집행 기간)', medium],
                 bb = df.loc['일일 리워드 전환수', medium],
                 cc = df.loc['일일 실제 전환수', medium],
-                dd = df.iloc[11, idx],
+                dd = df.loc["{}월{}일 잔존율".format(yesterday.strftime("%m"), yesterday.strftime("%d")), medium],
                 ee = df.loc['기간 총 잔존율', medium],
                 ff = df.loc['목표 달성률({}월)'.format(today.month), medium],
                 )
-            # element = element.replace(u'\xa0', u' ')
             body += element
             num += 1
 
