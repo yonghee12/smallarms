@@ -11,9 +11,15 @@ import urllib
 
 
 def hyphen_to_zero(hyphen_like):
+    if type(hyphen_like) == int or type(hyphen_like) == float:
+        return hyphen_like
+    hyphen_like = hyphen_like.replace('\n', '').replace("%", "")
     return int(str(hyphen_like).replace('-', '0').replace('.0', ''))
 
 def hyphen_to_floatzero(hyphen_like):
+    if type(hyphen_like) == float or type(hyphen_like) == int:
+        return hyphen_like
+    hyphen_like = hyphen_like.replace('\n', '').replace("%", "")
     return float(str(hyphen_like).replace('-', '0'))
 
 def yt(day, path, week, today, yesterday):
@@ -34,7 +40,7 @@ def yt(day, path, week, today, yesterday):
 
     # YT PRINT
         df = yt
-
+        print(df)
         gubun = ''
         num = 1
         body = ''

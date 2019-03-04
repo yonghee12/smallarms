@@ -16,6 +16,10 @@ env/
 envs/
 .envs/
 .testenv/
+*.envfile
 
 #garbage
 .DS_Store
+
+#results
+*.xlsx
