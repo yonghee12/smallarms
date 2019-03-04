@@ -11,14 +11,18 @@ import urllib
 
 
 def hyphen_to_zero(hyphen_like):
-    if type(hyphen_like) == int or type(hyphen_like) == float:
+    if type(hyphen_like) == int:
         return hyphen_like
+    elif type(hyphen_like) == float:
+        return int(hyphen_like)
     hyphen_like = hyphen_like.replace('\n', '').replace("%", "")
     return int(str(hyphen_like).replace('-', '0').replace('.0', ''))
 
 def hyphen_to_floatzero(hyphen_like):
-    if type(hyphen_like) == float or type(hyphen_like) == int:
+    if type(hyphen_like) == float:
         return hyphen_like
+    elif type(hyphen_like) == int:
+        return float(hyphen_like)
     hyphen_like = hyphen_like.replace('\n', '').replace("%", "")
     return float(str(hyphen_like).replace('-', '0'))
 
