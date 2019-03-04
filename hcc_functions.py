@@ -68,6 +68,10 @@ def yt(day, path, week, today, yesterday):
         - 75% : {:.2%}
         - 100% : {:.2%}
 
+    <운영 코멘트>
+    · VTR {:.2%}, CPV {:,.0f}원으로 .. 수치 보이며
+    · 
+    · 
 
     """.format(
                     num,
@@ -81,6 +85,8 @@ def yt(day, path, week, today, yesterday):
                     hyphen_to_floatzero(data['영상 재생률 50%']),
                     hyphen_to_floatzero(data['영상 재생률 75%']), 
                     hyphen_to_floatzero(data['영상 재생률 100%']),
+                    hyphen_to_floatzero(data['VTR']),
+                    hyphen_to_floatzero(data['CPV']),
                 )
         #         print(element)
                 body += element
@@ -267,7 +273,7 @@ def rw(day, path, today, yesterday):
     try:
         filepath = path + 'report.xlsx'
         rw = pd.read_excel(filepath, sheet_name = '매체별효율_{}월'.format(today.month), header = 4)
-        rw = rw.iloc[:, 1:6]
+        rw = rw.iloc[:, 1:-1]
         rw = rw.set_index('매체명/상품')
         rw.columns = rw_colname(rw.columns)
         rw = rw.dropna(axis=0, how='all')
