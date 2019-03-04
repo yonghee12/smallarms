@@ -10,6 +10,7 @@ __pycache__/
 *.py[cod]
 
 #envs
+<<<<<<< HEAD
 env_req.txt
 .env/
 env/
@@ -17,9 +18,18 @@ envs/
 .envs/
 .testenv/
 *.envfile
+=======
+.*env*/
+>>>>>>> 992a392cbd5caff170c0e22f527e9f45648dca9a
 
 #garbage
 .DS_Store
 
+<<<<<<< HEAD
 #results
 *.xlsx
+=======
+#test
+test.py
+*.ipynb
+>>>>>>> 992a392cbd5caff170c0e22f527e9f45648dca9a
