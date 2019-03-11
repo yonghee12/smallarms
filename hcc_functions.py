@@ -283,8 +283,16 @@ def rw(day, path, today, yesterday):
 
         gubun = ''
         num = 1
-        body = """{y}년 {m}월 {d}일 리워드광고 Daily Report 전달드립니다.
+        body = """안녕하세요,
+        퀀텀파이러츠 김희중입니다.
+        
+        {y}년 {m}월 {d}일 리워드광고 Daily Report 전달드립니다.
 리포트는 전일({ym}월 {yd}일)까지 수치 기입하였습니다. 참고 부탁드립니다.
+
+---- 
+
+[자사 리워드광고 효율 분석]  
+
 
 """.format(
 y = today.year,
@@ -324,7 +332,9 @@ yd = yesterday.day,
                 )
             body += element
             num += 1
-        body += """데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
+        body += """[경쟁사 분석 - 신한카드] 
+        
+        데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
 
         감사합니다.
         김희중 드림
