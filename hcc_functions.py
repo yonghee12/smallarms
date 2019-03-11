@@ -324,7 +324,12 @@ yd = yesterday.day,
                 )
             body += element
             num += 1
-        body += "감사합니다."
+        body += """데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
+
+        감사합니다.
+        김희중 드림
+        
+        """
         f = codecs.open(path + 'txt/' + '{}_RW.txt'.format(day), 'w', encoding='cp949')
         f.write(body)
         f.close()
