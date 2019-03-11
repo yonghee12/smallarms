@@ -145,7 +145,7 @@ def ig(day, path, week, today, yesterday):
     · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
 
     <운영 코멘트>
-    · CTR : {:.2%}, CPC : {:,.0f}원, CPI : {:,.0f}원
+    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원
     · 
     · 
 
@@ -217,7 +217,7 @@ def fb(day, path, week, today, yesterday):
     · 컨텐츠 반응 : {:,} Like / {:,} Page Like / {:,} Share / {:,} Comment
 
     <운영 코멘트>
-    · CTR : {:.2%}, CPC : {:,.0f}원, CPI : {:,.0f}원
+    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원
     · 
     · 
 
