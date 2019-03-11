@@ -47,7 +47,7 @@ def yt(day, path, week, today, yesterday):
         print(df)
         gubun = ''
         num = 1
-        body = ''
+        body = '[유튜브]\n\n'
 
         for row in df.iloc[:, :].iterrows():
             data = row[1]
@@ -68,10 +68,14 @@ def yt(day, path, week, today, yesterday):
         - 75% : {:.2%}
         - 100% : {:.2%}
 
+    · 관심사 타겟 정보 :
+
     <운영 코멘트>
+    · 
     · VTR {:.2%}, CPV {:,.0f}원으로 .. 수치 보이며
     · 
     · 
+
 
     """.format(
                     num,
@@ -91,6 +95,13 @@ def yt(day, path, week, today, yesterday):
         #         print(element)
                 body += element
                 num += 1
+        body += """
+        데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
+
+        감사합니다.
+        김희중 드림
+        
+        """
 
         # print(body)
         f = codecs.open(path + 'txt/' + '{}_{}_YT.txt'.format(day, week), 'w', encoding='cp949')
@@ -128,7 +139,7 @@ def ig(day, path, week, today, yesterday):
 
         gubun = ''
         num = 1
-        body = ''
+        body = '[인스타그램]\n\n'
         for row in df.iloc[:, :].iterrows():
             data = row[1]
             if data['구분'] != '합계/평균':
@@ -144,7 +155,10 @@ def ig(day, path, week, today, yesterday):
     · CPI : {:,.0f}원
     · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
 
+    · 관심사 타겟 정보 :
+
     <운영 코멘트>
+    · 
     · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원
     · 
     · 
@@ -200,7 +214,32 @@ def fb(day, path, week, today, yesterday):
 
         gubun = ''
         num = 1
-        body = ''
+        # body = ''
+        body = """안녕하세요,
+        퀀텀파이러츠 김희중입니다.
+        
+        {y}년 {m}월 {d}일 페이스북, 인스타그램, 유튜브 콘텐츠광고 Daily Report 전달해드립니다.
+리포트는 전일({ym}월 {yd}일)까지 수치 기입하였습니다. 참고 부탁드립니다.
+
+---  
+
+<금일 이슈>
+
+금일 안내드리는 종료 예정 캠페인입니다.
+·  : FB, IG, YT
+·  : FB, IG, YT
+
+---
+
+[페이스북]  
+
+""".format(
+y = today.year,
+m = today.month,
+d = today.day,
+ym = yesterday.month,
+yd = yesterday.day,
+)
         for row in df.iloc[:, :].iterrows():
             data = row[1]
             if data['구분'] != '합계/평균':
@@ -216,10 +255,14 @@ def fb(day, path, week, today, yesterday):
     · CPI : {:,.0f}원
     · 컨텐츠 반응 : {:,} Like / {:,} Page Like / {:,} Share / {:,} Comment
 
+    · 관심사 타겟 정보 :
+
     <운영 코멘트>
+    · 
     · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원
     · 
     · 
+
 
     """.format(
                     num,
@@ -316,8 +359,10 @@ yd = yesterday.day,
 
         <운영 코멘트>
         · 일일 전환수 {bb:,}회로 데일리캡 .. 수치 보였습니다.
-        · 
-        · 
+        · 일일 실전환수 {cc:,}회
+        · 당일 잔존율 {dd:.2%}
+        · {m}월 목표 달성률 {ff:.2%}
+
 
         """.format(
                 num = num,
@@ -332,8 +377,30 @@ yd = yesterday.day,
                 )
             body += element
             num += 1
-        body += """[경쟁사 분석 - 신한카드] 
-        
+        body += """[경쟁사 분석 - 신한카드]\n 
+        1. 인스타그램
+
+        <모니터링 코멘트>
+        · 3월부터 팔로워 소량 증가 혹은 감소 추이 이어지고 있습니다.
+        · 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 ,명 증가하고 있습니다.
+        · 전일 명 증가/감소했습니다.
+
+
+        2. 유튜브
+
+        <모니터링 코멘트>
+        · 1월 초부터 계속되는 팔로워 증가 추이 계속되고 있습니다.
+        · 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
+        · 전일 명 증가/감소했습니다.
+
+        3. 페이스북
+
+        <모니터링 코멘트>
+        · 증가 추이 유지하며 팔로워 증가중입니다.
+        · 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
+        · 전일 명 증가/감소했습니다.
+
+
         데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
 
         감사합니다.
