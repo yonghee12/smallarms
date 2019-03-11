@@ -324,7 +324,7 @@ yd = yesterday.day,
                 )
             body += element
             num += 1
-
+        body += "감사합니다."
         f = codecs.open(path + 'txt/' + '{}_RW.txt'.format(day), 'w', encoding='cp949')
         f.write(body)
         f.close()
