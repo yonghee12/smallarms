@@ -38,6 +38,10 @@
 
               // Step 6: Now you can get rid of your fluffy textarea element
               parentElement.removeChild(myFluffyTextarea);
+              
+              gtag('event', "copy_text", {
+              'event_label': "copy_text_label",
+              });
             }
           </script>
           <button id="copybutton" onclick="copyStringWithNewLineToClipBoard('p1')">텍스트 복사</button>
