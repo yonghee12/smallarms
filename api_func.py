@@ -23,7 +23,7 @@ def get_descriptions(urls):
         print('text: ', text, '\n')
         data.append(text)
         f.close()
-
+    print('-----------\n', 'LENGTH', len(data), '-----------\n')
     try:
         shutil.rmtree('files')
     except OSError as e:
