@@ -1,24 +1,34 @@
 from __future__ import unicode_literals
-import io
-from contextlib import redirect_stdout
+import os
+import shutil
+import json
+import youtube_dl2 as youtube_dl
 
-import youtube_dl
-
-
-# 나중에 url list를 받는 것도 필요
 def get_descriptions(urls):
-    with io.StringIO() as buf, redirect_stdout(buf):
-        ydl_opts = {
-            'forcedescription' : True,
-            'simulate' : True
-        }
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            # ydl.download([url])
-            ydl.download(urls)
-        output = buf.getvalue()
-        # output = output.split('Downloading video info webpage\n')[1]
-    return output
+    os.mkdir('files')
 
-# url_list = ['https://www.youtube.com/watch?v=cF38IAyv3tg']
-# desc = get_descriptions(url_list)
-# desc = desc.split('Downloading video info webpage\n')[1]
+    ydl_opts = {
+        'writedescription' : True,
+        'skip_download' : True
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download(urls)
+
+    filelist = os.listdir('files')
+
+    data = []
+    for filename in filelist:
+        f = open('files/' + filename, 'r')
+        data.append(f.read())
+        f.close()
+
+    try:
+        shutil.rmtree('files')
+    except OSError as e:
+        if e.errno == 2:
+            # 파일이나 디렉토리가 없음!
+            print('No such file or directory to remove')
+            pass
+        else:
+            raise
+    return data

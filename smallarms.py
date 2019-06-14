@@ -1,13 +1,17 @@
 import os
-from flask import Flask, render_template, flash, request, redirect, url_for
+from flask import Flask, render_template, flash, request, redirect, url_for, jsonify
+from flask_restful import Resource, Api, reqparse
 from werkzeug.utils import secure_filename
+
 import hcc_main as hcc
+import api_func
 # import hcc_contents as cr
 
 UPLOAD_FOLDER = './user_upload'
 ALLOWED_EXTENSIONS = set(['xlsx'])
 
 app = Flask(__name__)
+api = Api(app)
 app.secret_key = "secret"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -16,6 +20,16 @@ def allowed_file(filename):
 	return '.' in filename and \
 		   filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+class YoutubeDescription(Resource):
+    def get(self):
+        # return api_func.get_descriptions(url)
+        # print('\n', request.args)
+        urls = request.args.getlist('url')
+        data = api_func.get_descriptions(urls)
+        return jsonify(data)
+
+api.add_resource(YoutubeDescription, '/youtube-description')
 
 @app.route("/")
 def root():
