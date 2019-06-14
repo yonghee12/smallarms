@@ -33,4 +33,5 @@ def get_descriptions(urls):
             pass
         else:
             raise
+    print(data)
     return data
