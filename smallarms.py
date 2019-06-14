@@ -27,7 +27,7 @@ class YoutubeDescription(Resource):
         # print('\n', request.args)
         urls = request.args.getlist('url')
         data = api_func.get_descriptions(urls)
-		data = jsonify(data)
+        data = jsonify(data)
         return data
 
 api.add_resource(YoutubeDescription, '/youtube-description')
