@@ -15,11 +15,13 @@ def get_descriptions(urls):
         ydl.download(urls)
 
     filelist = os.listdir('files')
-
+    print('filelist: ', filelist, '\n')
     data = []
     for filename in filelist:
         f = open('files/' + filename, 'r')
-        data.append(f.read())
+        text = f.read()
+        print('text: ', text, '\n')
+        data.append(text)
         f.close()
 
     try:
