@@ -6,16 +6,17 @@ import youtube_dl
 
 
 # 나중에 url list를 받는 것도 필요
-def get_descriptions(url):
+def get_descriptions(urls):
     with io.StringIO() as buf, redirect_stdout(buf):
         ydl_opts = {
             'forcedescription' : True,
             'simulate' : True
         }
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([url])
+            # ydl.download([url])
+            ydl.download(urls)
         output = buf.getvalue()
-        output = output.split('Downloading video info webpage\n')[1]
+        # output = output.split('Downloading video info webpage\n')[1]
     return output
 
 # url_list = ['https://www.youtube.com/watch?v=cF38IAyv3tg']
