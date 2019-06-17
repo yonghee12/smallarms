@@ -4,6 +4,7 @@
 
 #destination
 user_upload/
+files/
 
 #caches
 __pycache__/
@@ -30,3 +31,9 @@ test.py
 
 #pyenv
 *.python-version
+
+#credentials
+credentials.json
+
+#stores
+*.pickle
