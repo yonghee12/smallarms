@@ -52,4 +52,5 @@ def get_descriptions(urls):
         else:
             raise
     print(data)
+    print(os.listdir())
     return data
