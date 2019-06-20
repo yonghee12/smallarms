@@ -12,6 +12,8 @@
         <h3>{{ medium.upper() }} 광고 리포트 - {{ day }}</h3>
         <br><br>
         <div class="col-lg-6 col-lg-offset-3">
+          <button id="copybutton" onclick="copyStringWithNewLineToClipBoard('p1')">텍스트 복사</button>
+          <br><br>
           <div type="text/html">
             <p id="p1">{{ report | safe }}</p>
           </div>
