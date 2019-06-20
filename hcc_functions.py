@@ -35,7 +35,7 @@ def yt(day, path, week, today, yesterday):
         yt = yt.iloc[1:, :]
         yt.columns = [
             '구분', '날짜', '소재', '광고타겟', '예산(vat포함)', '예산', '소진금액', 
-            '소진금액(vat포함)', '노출', '클릭', '조회', 'CTR', 'VTR', 
+            '소진금액(vat포함)', '노출', '클릭', '조회', 'CTR', 'VTR', 'CPM',
             'CPC', 'CPV', '영상 재생률 25%', '영상 재생률 50%', '영상 재생률 75%', 
             '영상 재생률 100%', '영상 좋아요', '채널 구독', '링크'
         ]
@@ -61,6 +61,7 @@ def yt(day, path, week, today, yesterday):
     · 달성 노출 : {:,} Imps
     · 달성 조회 : {:,} View
     · VTR : {:.2%}
+    · CPM : {:,.0f}원
     · CPV : {:,.0f}원
     · 동영상 재생진행률
         - 25% : {:.2%}
@@ -84,6 +85,7 @@ def yt(day, path, week, today, yesterday):
                     hyphen_to_zero(data['노출']),
                     hyphen_to_zero(data['조회']),
                     hyphen_to_floatzero(data['VTR']),
+                    hyphen_to_floatzero(data['CPM']),
                     hyphen_to_floatzero(data['CPV']),
                     hyphen_to_floatzero(data['영상 재생률 25%']),
                     hyphen_to_floatzero(data['영상 재생률 50%']),
