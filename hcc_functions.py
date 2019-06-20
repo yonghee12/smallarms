@@ -127,13 +127,16 @@ def ig(day, path, week, today, yesterday):
         filepath = path + 'report.xlsx'
         ig = pd.read_excel(filepath, sheet_name = week, header = 3)
         ig = ig.iloc[1:, :]
-        ig.columns = ['구분', '날짜', '소재', '광고 타겟', '모수', '예산(vat포함)', '예산', '소진금액',
-            '소진 금액(vat포함)', '광고도달', '노출', '클릭', 'CTR',
-            'CPC', '링크클릭', '링크클릭CPC', 'CPV',
-            'Video Views (3초+)', 'Video Views (100%)', '페이지 Like', 'CPL',
-            'CPI(인터렉션)', 'Reaction(Like)', 'Reaction(Share)', 'Reaction(Comment)', 
-                    'Reaction(Total)', '링크']
-        ig = ig.fillna(method='ffill')
+        ig.columns = [
+            '구분', '날짜', '소재', '광고 타겟', '모수', '예산(vat포함)', '예산', '소진금액',
+            '소진 금액(vat포함)', '광고도달', '노출', '클릭', '링크클릭', 
+            'Video Views (3초+)', 'Video Views (100%)',
+            'Reaction(Like)', 'Reaction(Share)', 'Reaction(Comment)', 'Reaction(Total)',
+            'CTR', 'CPM', 'CPC', '링크클릭CPC', 'CPV', 
+            'CPI(인터렉션)', '링크'
+        ]
+        ig.iloc[:, :4] = ig.iloc[:, :4].fillna(method='ffill')
+        ig.iloc[:, 4:] = ig.iloc[:, 4:].fillna(0)
         ig = ig.reset_index(drop=True)
 
     # IG PRINT
@@ -153,6 +156,7 @@ def ig(day, path, week, today, yesterday):
     · 달성 노출 : {:,} Imps
     · 달성 클릭 : {:,} Clicks
     · CTR : {:.2%}
+    · CPM : {:,.0f}원
     · CPC : {:,.0f}원
     · CPI : {:,.0f}원
     · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
@@ -161,7 +165,7 @@ def ig(day, path, week, today, yesterday):
 
     <운영 코멘트>
     · 
-    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원
+    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원, CPM {:,.0f}원
     · 
     · 
 
@@ -173,6 +177,7 @@ def ig(day, path, week, today, yesterday):
                 hyphen_to_zero(data['노출']),
                 hyphen_to_zero(data['클릭']),
                 hyphen_to_floatzero(data['CTR']),
+                hyphen_to_floatzero(data['CPM']),
                 hyphen_to_floatzero(data['CPC']),
                 hyphen_to_floatzero(data['CPI(인터렉션)']),
                 hyphen_to_zero(data['Reaction(Like)']),
@@ -181,6 +186,7 @@ def ig(day, path, week, today, yesterday):
                 hyphen_to_floatzero(data['CTR']),
                 hyphen_to_floatzero(data['CPC']),
                 hyphen_to_floatzero(data['CPI(인터렉션)']),
+                hyphen_to_floatzero(data['CPM']),
                 )
                 body += element
                 num += 1
