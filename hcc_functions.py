@@ -151,7 +151,6 @@ def ig(day, path, week, today, yesterday):
             if data['구분'] != '합계/평균':
                 gubun = data['구분']
             elif data['구분'] == '합계/평균':
-                # if "트래픽" in gubun.split('_'):
                 if "트래픽" in gubun:
                     element = """{}. {:} : {:}
 
@@ -162,6 +161,7 @@ def ig(day, path, week, today, yesterday):
                     · CTR : {:.2%}
                     · CPM : {:,.0f}원
                     · CPC : {:,.0f}원
+                    · 링크 클릭 CPC : {:,.0f}원
                     · CPI : {:,.0f}원
                     · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
 
@@ -184,6 +184,7 @@ def ig(day, path, week, today, yesterday):
                     hyphen_to_floatzero(data['CTR']),
                     hyphen_to_floatzero(data['CPM']),
                     hyphen_to_floatzero(data['CPC']),
+                    hyphen_to_floatzero(data['링크클릭CPC']),
                     hyphen_to_floatzero(data['CPI(인터렉션)']),
                     hyphen_to_zero(data['Reaction(Like)']),
                     hyphen_to_zero(data['Reaction(Share)']),
