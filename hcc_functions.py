@@ -39,8 +39,9 @@ def yt(day, path, week, today, yesterday):
             'CPC', 'CPV', '영상 재생률 25%', '영상 재생률 50%', '영상 재생률 75%', 
             '영상 재생률 100%', '영상 좋아요', '채널 구독', '링크'
         ]
+        yt.iloc[:, :4] = yt.iloc[:, :4].fillna(method='ffill')
+        yt.iloc[:, 4:] = yt.iloc[:, 4:].fillna(0)
         yt = yt.reset_index(drop=True)
-        yt = yt.fillna(method='ffill')
 
     # YT PRINT
         df = yt
@@ -64,10 +65,10 @@ def yt(day, path, week, today, yesterday):
     · CPM : {:,.0f}원
     · CPV : {:,.0f}원
     · 동영상 재생진행률
-        - 25% : {:.2%}
-        - 50% : {:.2%}
-        - 75% : {:.2%}
-        - 100% : {:.2%}
+    &emsp;- 25% : {:.2%}
+    &emsp;- 50% : {:.2%}
+    &emsp;- 75% : {:.2%}
+    &emsp;- 100% : {:.2%}
 
     · 관심사 타겟 정보 :
 
@@ -150,46 +151,92 @@ def ig(day, path, week, today, yesterday):
             if data['구분'] != '합계/평균':
                 gubun = data['구분']
             elif data['구분'] == '합계/평균':
-                element = """{}. {:} : {:}
+                # if "트래픽" in gubun.split('_'):
+                if "트래픽" in gubun:
+                    element = """{}. {:} : {:}
 
-    <지표 성과>
-    · 달성 노출 : {:,} Imps
-    · 달성 클릭 : {:,} Clicks
-    · CTR : {:.2%}
-    · CPM : {:,.0f}원
-    · CPC : {:,.0f}원
-    · CPI : {:,.0f}원
-    · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
+                    <지표 성과>
+                    · 달성 노출 : {:,} Imps
+                    · 달성 클릭 : {:,} Clicks
+                    · 링크 클릭 : {:,} Clicks
+                    · CTR : {:.2%}
+                    · CPM : {:,.0f}원
+                    · CPC : {:,.0f}원
+                    · CPI : {:,.0f}원
+                    · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
 
-    · 관심사 타겟 정보 :
+                    · 관심사 타겟 정보 :
 
-    <운영 코멘트>
-    · 
-    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원, CPM {:,.0f}원
-    · 
-    · 
+                    <운영 코멘트>
+                    · 
+                    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원, CPM {:,.0f}원
+                    · 
+                    · 
 
 
-    """.format(
-                num,
-                gubun.replace('\n', ' ').replace("  ", ' ').replace("  ", ' ').strip(),
-                data['날짜'].replace('\n', ' '),
-                hyphen_to_zero(data['노출']),
-                hyphen_to_zero(data['클릭']),
-                hyphen_to_floatzero(data['CTR']),
-                hyphen_to_floatzero(data['CPM']),
-                hyphen_to_floatzero(data['CPC']),
-                hyphen_to_floatzero(data['CPI(인터렉션)']),
-                hyphen_to_zero(data['Reaction(Like)']),
-                hyphen_to_zero(data['Reaction(Share)']),
-                hyphen_to_zero(data['Reaction(Comment)']),
-                hyphen_to_floatzero(data['CTR']),
-                hyphen_to_floatzero(data['CPC']),
-                hyphen_to_floatzero(data['CPI(인터렉션)']),
-                hyphen_to_floatzero(data['CPM']),
-                )
-                body += element
-                num += 1
+        """.format(
+                    num,
+                    gubun.replace('\n', ' ').replace("  ", ' ').replace("  ", ' ').strip(),
+                    data['날짜'].replace('\n', ' '),
+                    hyphen_to_zero(data['노출']),
+                    hyphen_to_zero(data['클릭']),
+                    hyphen_to_zero(data['링크클릭']),
+                    hyphen_to_floatzero(data['CTR']),
+                    hyphen_to_floatzero(data['CPM']),
+                    hyphen_to_floatzero(data['CPC']),
+                    hyphen_to_floatzero(data['CPI(인터렉션)']),
+                    hyphen_to_zero(data['Reaction(Like)']),
+                    hyphen_to_zero(data['Reaction(Share)']),
+                    hyphen_to_zero(data['Reaction(Comment)']),
+                    hyphen_to_floatzero(data['CTR']),
+                    hyphen_to_floatzero(data['CPC']),
+                    hyphen_to_floatzero(data['CPI(인터렉션)']),
+                    hyphen_to_floatzero(data['CPM']),
+                    )
+                    body += element
+                    num += 1
+
+                else:
+                    element = """{}. {:} : {:}
+
+                    <지표 성과>
+                    · 달성 노출 : {:,} Imps
+                    · 달성 클릭 : {:,} Clicks
+                    · CTR : {:.2%}
+                    · CPM : {:,.0f}원
+                    · CPC : {:,.0f}원
+                    · CPI : {:,.0f}원
+                    · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
+
+                    · 관심사 타겟 정보 :
+
+                    <운영 코멘트>
+                    · 
+                    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원, CPM {:,.0f}원
+                    · 
+                    · 
+
+
+        """.format(
+                    num,
+                    gubun.replace('\n', ' ').replace("  ", ' ').replace("  ", ' ').strip(),
+                    data['날짜'].replace('\n', ' '),
+                    hyphen_to_zero(data['노출']),
+                    hyphen_to_zero(data['클릭']),
+                    hyphen_to_floatzero(data['CTR']),
+                    hyphen_to_floatzero(data['CPM']),
+                    hyphen_to_floatzero(data['CPC']),
+                    hyphen_to_floatzero(data['CPI(인터렉션)']),
+                    hyphen_to_zero(data['Reaction(Like)']),
+                    hyphen_to_zero(data['Reaction(Share)']),
+                    hyphen_to_zero(data['Reaction(Comment)']),
+                    hyphen_to_floatzero(data['CTR']),
+                    hyphen_to_floatzero(data['CPC']),
+                    hyphen_to_floatzero(data['CPI(인터렉션)']),
+                    hyphen_to_floatzero(data['CPM']),
+                    )
+                    body += element
+                    num += 1
 
 
         # print(body)
@@ -209,13 +256,16 @@ def fb(day, path, week, today, yesterday):
         filepath = path + 'report.xlsx'
         fb = pd.read_excel(filepath, sheet_name = week, header = 3)
         fb = fb.iloc[1:, :]
-        fb.columns = ['구분', '날짜', '소재', '광고 타겟', '모수', '예산(vat포함)', '예산', '소진금액',
-            '소진 금액(vat포함)', '광고도달', '노출', '클릭', 'CTR',
-            'CPC', 'CPL', '링크클릭', '링크클릭CPC', 'CPV',
+        fb.columns = [
+            '구분', '날짜', '소재', '광고 타겟', '모수', '예산(vat포함)', '예산', '소진금액',
+            '소진 금액(vat포함)', '광고도달', '노출', '클릭', '링크클릭', 
             'Video Views (3초+)', 'Video Views (100%)',
-            'CPI(인터렉션)', 'Reaction(Like)', 'Reaction(PageLike)', 'Reaction(Share)', 
-                    'Reaction(Comment)', 'Reaction(Total)', '링크']
-        fb = fb.fillna(method='ffill')
+            'Reaction(Like)', 'Reaction(Share)', 'Reaction(Comment)', 'Reaction(Total)',
+            'CTR', 'CPM', 'CPC', '링크클릭CPC', 'CPV', 
+            'CPI(인터렉션)', '링크'
+        ]
+        fb.iloc[:, :4] = fb.iloc[:, :4].fillna(method='ffill')
+        fb.iloc[:, 4:] = fb.iloc[:, 4:].fillna(0)
         fb = fb.reset_index(drop=True)
 
     # FB PRINT
@@ -260,6 +310,7 @@ yd = yesterday.day,
     · 달성 노출 : {:,.0f} Imps
     · 달성 클릭 : {:,.0f} Clicks
     · CTR : {:.2%}
+    · CPM : {:,.0f}원
     · CPC : {:,.0f}원
     · CPI : {:,.0f}원
     · 컨텐츠 반응 : {:,} Like / {:,} Page Like / {:,} Share / {:,} Comment
@@ -268,7 +319,7 @@ yd = yesterday.day,
 
     <운영 코멘트>
     · 
-    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원
+    · CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원, CPM {:,.0f}원
     · 
     · 
 
@@ -280,6 +331,7 @@ yd = yesterday.day,
                     hyphen_to_zero(data['노출']),
                     hyphen_to_zero(data['클릭']),
                     hyphen_to_floatzero(data['CTR']),
+                    hyphen_to_floatzero(data['CPM']),
                     hyphen_to_floatzero(data['CPC']),
                     hyphen_to_floatzero(data['CPI(인터렉션)']),
                     hyphen_to_zero(data['Reaction(Like)']),
@@ -288,7 +340,8 @@ yd = yesterday.day,
                     hyphen_to_zero(data['Reaction(Comment)']),
                     hyphen_to_floatzero(data['CTR']),
                     hyphen_to_floatzero(data['CPC']),
-                    hyphen_to_floatzero(data['CPI(인터렉션)'])
+                    hyphen_to_floatzero(data['CPI(인터렉션)']),
+                    hyphen_to_floatzero(data['CPM']),
                 )
         #         print(element)
                 body += element
