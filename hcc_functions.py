@@ -428,98 +428,99 @@ def rw(day, path, today, yesterday):
         return new_columns
     try:
         filepath = path + 'report.xlsx'
-        rw = pd.read_excel(filepath, sheet_name = '매체별효율_{}월'.format(today.month), header = 4)
-        rw = rw.iloc[:, 1:-1]
-        rw = rw.set_index('매체명/상품')
-        rw.columns = rw_colname(rw.columns)
-        rw = rw.dropna(axis=0, how='all')
-        rw = rw.fillna(axis=1, method='ffill')
+        rw = pd.read_excel(filepath, sheet_name = 'Summary({}월)'.format(today.month), header = 3)
+        rw = rw.iloc[:, :]
+        rw = rw.set_index('플랫폼')
+        # rw.columns = rw_colname(rw.columns)
+        # rw = rw.dropna(axis=0, how='all')
+        # rw = rw.fillna(axis=1, method='ffill')
 
         df = rw
 
         gubun = ''
         num = 1
         body = """안녕하세요,
-        퀀텀파이러츠 김희중입니다.
-        
-        {y}년 {m}월 {d}일 리워드광고 Daily Report 전달드립니다.
-리포트는 전일({ym}월 {yd}일)까지 수치 기입하였습니다. 참고 부탁드립니다.
+퀀텀파이러츠 김소영입니다.
+
+{y}년 {m}월 {d}일 리워드광고 Daily Report 전달드립니다.
+리포트는 전일({yesterday})까지 수치 기입하였습니다. 참고 부탁드립니다.
 
 ---- 
 
 [자사 리워드광고 효율 분석]  
 
 
-""".format(
-y = today.year,
-m = today.month,
-d = today.day,
-ym = yesterday.month,
-yd = yesterday.day,
-)
+    """.format(
+    y = today.year,
+    m = today.month,
+    d = today.day,
+    yesterday = yesterday.strftime('%m월 %d일')
+    )
 
         media = df.columns
         for idx, medium in enumerate(media):
-            element = """{num}. {medium}
+            element = """{num}. {medium} - {product}
 
-        <지표 성과>
-        · 집행 기간 : {aa}
-        · 일일 전환수 : {bb:,}
-        · 일일 실전환수 : {cc:,}
-        · 당일 잔존율 : {dd:.2%}
-        · {m}월 잔존율 : {ee:.2%}
-        · {m}월 목표 달성률 : {ff:.2%}
+<지표 성과>
+· 집행 기간 : {start} ~ {end}
+· 전환수 : {conv:,}
+· 실전환수 : {conv_real:,}
+· {m}월 잔존율 : {remaining_rate:.2%}
+· {m}월 목표 달성률 : {accomplished_rate:.2%}
 
-        <운영 코멘트>
-        · 일일 전환수 {bb:,}회로 데일리캡 .. 수치 보였습니다.
-        · 일일 실전환수 {cc:,}회
-        · 당일 잔존율 {dd:.2%}
-        · {m}월 목표 달성률 {ff:.2%}
+<운영 코멘트>
+· {m}월 잔존율 {remaining_rate:.2%}로 ... 효율 나타났습니다.
+· 현재 팬 수는 {fan:,}명 입니다.
+· {m}월 목표 달성률 {accomplished_rate:.2%} 입니다.
 
-
-        """.format(
+    """.format(
                 num = num,
                 medium = medium,
                 m = today.month,
-                aa = df.loc['(집행 기간)', medium],
-                bb = df.loc['일일 리워드 전환수', medium],
-                cc = df.loc['일일 실제 전환수', medium],
-                dd = df.loc["{}월{}일 잔존율".format(yesterday.strftime("%m"), yesterday.strftime("%d")), medium],
-                ee = df.loc['기간 총 잔존율', medium],
-                ff = df.loc['목표 달성률({}월)'.format(today.month), medium],
+                product = df.loc['매체명/상품', medium],
+                start = df.loc['집행 시작일', medium].strftime("%Y.%m.%d"),
+                end = df.loc['집행 종료일', medium].strftime("%Y.%m.%d"),
+                conv = hyphen_to_zero(df.loc['전환수', medium]),
+                conv_real = hyphen_to_zero(df.loc['실제 전환수(추정치)', medium]),
+                remaining_rate = hyphen_to_floatzero(df.loc["기간 총 잔존율", medium]),
+                accomplished_rate = hyphen_to_floatzero(df.loc["목표 달성률(7월)", medium]),
+                fan = hyphen_to_zero(df.loc["팬 수({}기준)".format(yesterday.strftime("%m/%d")), medium])
+    #             ee = df.loc['기간 총 잔존율', medium],
+    #             ff = df.loc['목표 달성률({}월)'.format(today.month), medium],
+    #             remaining_rate = df.loc["기간 총 잔존율".format(yesterday.strftime("%m"), yesterday.strftime("%d")), medium],
                 )
             body += element
             num += 1
         body += """[경쟁사 분석 - 신한카드]\n 
-        1. 인스타그램
+1. 인스타그램
 
-        <모니터링 코멘트>
-        · 팔로워 감소 추이 이어졌으나 4월 시작과 함께 수치 급상승하였습니다.
-        · 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 ,명 증가하고 있습니다.
-        · 전일 명 증가했습니다.
-
-
-        2. 유튜브
-
-        <모니터링 코멘트>
-        · 팔로워 증가 추이 계속되고 있습니다.
-        · 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
-        · 전일 명 증가했습니다.
+<모니터링 코멘트>
+· 팔로워 감소 추이 이어졌으나 4월 시작과 함께 수치 급상승하였습니다.
+· 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 ,명 증가하고 있습니다.
+· 전일 명 증가했습니다.
 
 
-        3. 페이스북
+2. 유튜브
 
-        <모니터링 코멘트>
-        · 팔로워 소량 증가 혹은 감소 추이 이어지고 있습니다.
-        · 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
-        · 전일 명 증가/감소했습니다.
+<모니터링 코멘트>
+· 팔로워 증가 추이 계속되고 있습니다.
+· 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
+· 전일 명 증가했습니다.
 
 
-        데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
+3. 페이스북
 
-        감사합니다.
-        김희중 드림
-        
+<모니터링 코멘트>
+· 팔로워 소량 증가 혹은 감소 추이 이어지고 있습니다.
+· 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
+· 전일 명 증가/감소했습니다.
+
+
+데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
+
+감사합니다.
+김소영 드림
+
         """
         f = codecs.open(path + 'txt/' + '{}_RW.txt'.format(day), 'w', encoding='cp949')
         f.write(body)
