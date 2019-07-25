@@ -65,10 +65,10 @@ def yt(day, path, week, today, yesterday):
     · CPM : {:,.0f}원
     · CPV : {:,.0f}원
     · 동영상 재생진행률
-    &emsp;- 25% : {:.2%}
-    &emsp;- 50% : {:.2%}
-    &emsp;- 75% : {:.2%}
-    &emsp;- 100% : {:.2%}
+    &nbsp; &nbsp;- 25% : {:.2%}
+    &nbsp; &nbsp;- 50% : {:.2%}
+    &nbsp; &nbsp;- 75% : {:.2%}
+    &nbsp; &nbsp;- 100% : {:.2%}
 
     · 관심사 타겟 정보 :
 
@@ -493,3 +493,274 @@ def rw(day, path, today, yesterday):
     
     body = body.replace("\n", "<br>")
     return body
+
+
+
+
+
+
+# -----------------------DIVE--------------------------
+
+
+
+
+
+
+
+
+
+
+def get_fbig_body(df, key):
+    columns = [
+        '구분', '날짜', '소재', '광고 타겟', '모수', '"예산(vat포함)"', 
+        '예산', '소진금액', '"소진금액(vat포함)"', '광고도달', '노출', '클릭', '링크클릭', 
+        '"Video Views(3초+)"', '"Video Views(100%)"', 'Like', 'Share', 'Comment', 
+        'Total', 'CTR', 'CPM', 'CPC', '링크클릭CPC', 'CPV', 'CPI(인터렉션)'
+    ]
+    df.columns = columns
+    df = df.iloc[1:, :]
+    df.iloc[:, :4] = df.iloc[:, :4].fillna(method='ffill')
+    df.iloc[:, 4:] = df.iloc[:, 4:].fillna(0)
+    df = df.reset_index(drop=True)
+    df
+
+    # Body Area
+    body = """---
+
+[{}]
+
+""".format(key)
+
+    gubun = ''
+    num = 1
+    # body = ''
+
+    for row in df.iloc[:, :].iterrows():
+        data = row[1]
+        if data['구분'] != '합계/평균':
+            gubun = data['구분']
+        elif data['구분'] == '합계/평균':
+            element = """{}. {:} : {:}
+
+<지표 성과>
+· 달성 노출 : {:,.0f} Imps
+· 달성 클릭 : {:,.0f} Clicks
+· 링크 클릭 : {:,.0f} Clicks
+· CTR : {:.2%}
+· CPM : {:,.0f}원
+· CPC : {:,.0f}원
+· 링크 클릭 CPC : {:,.0f}원
+· CPI : {:,.0f}원
+· 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
+
+· 관심사 타겟 정보 :
+
+<운영 코멘트>
+· 
+· CTR {:.2%}, CPC {:,.0f}원, CPI {:,.0f}원, CPM {:,.0f}원
+· 
+· 
+
+
+""".format(
+            num,
+            gubun.replace('\n', ' ').replace("  ", ' ').replace("  ", ' ').strip(),
+            data['날짜'].replace('\n', ' '),
+            hyphen_to_zero(data['노출']),
+            hyphen_to_zero(data['클릭']),
+            hyphen_to_zero(data['링크클릭']),
+            hyphen_to_floatzero(data['CTR']),
+            hyphen_to_floatzero(data['CPM']),
+            hyphen_to_floatzero(data['CPC']),
+            hyphen_to_floatzero(data['링크클릭CPC']),
+            hyphen_to_floatzero(data['CPI(인터렉션)']),
+            hyphen_to_zero(data['Like']),
+            hyphen_to_zero(data['Share']),
+            hyphen_to_zero(data['Comment']),
+            hyphen_to_floatzero(data['CTR']),
+            hyphen_to_floatzero(data['CPC']),
+            hyphen_to_floatzero(data['CPI(인터렉션)']),
+            hyphen_to_floatzero(data['CPM']),
+            )
+    #         print(element)
+            body += element
+            num += 1
+#     print(body)
+    body = body.replace("\n", "<br>")
+    return body
+
+def get_yt_body(df, key):
+
+    yt = df
+    columns = [
+    '구분', '날짜', '소재', '광고타겟', '예산\n(vat포함)', '예산', '소진금액', 
+    '소진금액\n(vat포함)', '노출', '클릭', '조회', 'CTR', 'VTR', 'CPM', 'CPC', 
+    'CPV', '영상 재생률 25%', '영상 재생률 50%', '영상 재생률 75%', '영상 재생률 100%', 
+    '영상 좋아요', '채널 구독'
+    ]
+    yt.columns = columns
+    yt = yt.iloc[1:, :]
+    yt.iloc[:, :4] = yt.iloc[:, :4].fillna(method='ffill')
+    yt.iloc[:, 4:] = yt.iloc[:, 4:].fillna(0)
+    yt = yt.reset_index(drop=True)
+
+    df = yt
+    # print(df)
+    gubun = ''
+    num = 1
+    body = """---
+
+[{}]
+
+""".format(key)
+
+    for row in df.iloc[:, :].iterrows():
+        data = row[1]
+        if data['구분'] != '합계/평균':
+            gubun = data['구분']
+            continue
+        elif data['구분'] == '합계/평균':
+            element = """{}. {:} : {:}
+
+<지표 성과>
+· 달성 노출 : {:,} Imps
+· 달성 조회 : {:,} View
+· VTR : {:.2%}
+· CPM : {:,.0f}원
+· CPV : {:,.0f}원
+· 동영상 재생진행률
+&nbsp; &nbsp;- 25% : {:.2%}
+&nbsp; &nbsp;- 50% : {:.2%}
+&nbsp; &nbsp;- 75% : {:.2%}
+&nbsp; &nbsp;- 100% : {:.2%}
+
+· 관심사 타겟 정보 :
+
+<운영 코멘트>
+· 
+· VTR {:.2%}, CPV {:,.0f}원으로 .. 수치 보이며
+· 
+· 
+
+
+""".format(
+                num,
+                gubun.replace('\n', ' ').replace("  ", ' ').replace("  ", ' ').strip(),
+                data['날짜'].replace('\n', ' '),
+                hyphen_to_zero(data['노출']),
+                hyphen_to_zero(data['조회']),
+                hyphen_to_floatzero(data['VTR']),
+                hyphen_to_floatzero(data['CPM']),
+                hyphen_to_floatzero(data['CPV']),
+                hyphen_to_floatzero(data['영상 재생률 25%']),
+                hyphen_to_floatzero(data['영상 재생률 50%']),
+                hyphen_to_floatzero(data['영상 재생률 75%']), 
+                hyphen_to_floatzero(data['영상 재생률 100%']),
+                hyphen_to_floatzero(data['VTR']),
+                hyphen_to_floatzero(data['CPV']),
+            )
+    #         print(element)
+            body += element
+            num += 1
+    # f = codecs.open(path + 'txt/' + '{}_{}_YT.txt'.format(day, week), 'w', encoding='cp949')
+    # f.write(body)
+    # f.close()
+    # print('{}_{}_YT.txt'.format(day, week), '생성 완료')
+
+    body = body.replace("\n", "<br>")
+    # body
+    return body
+
+def get_app_search_ads_body(df, key, yesterday):
+    try:
+        df = df.reset_index(drop=True)
+        df = df.iloc[1:93, :8]
+        columns = [
+            '집행 일자', '소진금액(vat포함)', '노출', '클릭', '앱 다운로드', 'CPM', 'CPC', 'CPA'
+        ]
+        df.columns = columns
+        df = df[df['집행 일자'] == pd.Timestamp(yesterday)]
+        ser = df.T.squeeze()
+
+        body = """---
+
+[{medium}]
+
+<지표 성과>
+· 달성 노출 : {imps:,} Imps
+· 달성 클릭 : {clicks:,} Clicks  
+· 앱 다운로드 : {app_downloads:,} 회 
+· CPM : {cpm:,.0f}원
+· CPC : {cpc:,.0f}원
+· CPA : {cpa:,.0f}원
+
+
+<운영 코멘트>
+· 총 앱 다운로드 수 {app_downloads:,}회 입니다.
+· 
+        """.format(
+            medium = key,
+            imps = ser['노출'],
+            clicks = ser['클릭'],
+            app_downloads = ser['앱 다운로드'],
+            cpm = ser['CPM'],
+            cpc = ser['CPC'],
+            cpa = ser['CPA'],
+        )
+    except ValueError as e:
+        return str(e)
+    body = body.replace("\n", "<br>")
+    return body
+
+def dive(day, path, week, today, yesterday):    
+    header = """안녕하세요,
+    퀀텀파이러츠 김소영입니다.
+
+    {y}년 {m}월 {d}일 페이스북, 인스타그램, 유튜브 콘텐츠광고 Daily Report 전달해드립니다.
+    리포트는 전일({yesterday})까지 수치 기입하였습니다. 참고 부탁드립니다.
+
+    ---  
+
+    <금일 이슈>
+
+    금일 안내드리는 종료 예정 캠페인입니다.
+    ·  : FB, IG, YT
+    ·  : FB, IG, YT
+
+    ---
+
+    """.format(
+    y = today.year,
+    m = today.month,
+    d = today.day,
+    yesterday = yesterday.strftime("%m월 %d일"),
+    )
+    header = header.replace("\n", "<br>")
+    filepath = path + 'report.xlsx'
+    dfs = pd.read_excel(
+        filepath, 
+        sheet_name=['FB_비게시', 'IG_비게시', 'IG_게시', 'YT_게시', 'UAC', 'ASA'], 
+        header = 4,
+    )
+
+    keys = list(dfs.keys())
+
+    for key in ['FB_비게시', 'IG_비게시', 'IG_게시']:
+        print(key)
+        df = dfs[key]
+        body = get_fbig_body(df, key)
+        header += body
+
+    for key in ['YT_게시']:
+        print(key)
+        df = dfs[key]
+        body = get_yt_body(df, key)
+        header += body
+
+    for key in ['UAC', 'ASA']:
+        print(key)
+        df = dfs[key]
+        body = get_app_search_ads_body(df, key, yesterday)
+        header += body
+
+    return header

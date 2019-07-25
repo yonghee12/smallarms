@@ -80,6 +80,12 @@ def report():
 				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 				print('DAY2:', day)
 				return redirect(url_for('run_hcc', day=day, medium='fb', week=week), code=301)
+			elif "Dive" in filename:
+				print('dive')
+				filename = "report.xlsx"
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				print('DAY2:', day)
+				return redirect(url_for('run_hcc', day=day, medium='dive', week=week), code=301)
 
 	return render_template('report.html', page_title="hcc_rewards")
 

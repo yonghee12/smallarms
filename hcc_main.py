@@ -26,5 +26,7 @@ def run(medium, day, week):
         return hcc_functions.ig(day, path, week, today, yesterday)
     elif medium == 'fb':
         return hcc_functions.fb(day, path, week, today, yesterday)
+    elif medium == 'dive':
+        return hcc_functions.dive(day, path, week, today, yesterday)
     else:
         print('Nothing Passed')
