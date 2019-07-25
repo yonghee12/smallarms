@@ -267,7 +267,7 @@ def fb(day, path, week, today, yesterday):
         퀀텀파이러츠 김소영입니다.
         
         {y}년 {m}월 {d}일 페이스북, 인스타그램, 유튜브 콘텐츠광고 Daily Report 전달해드립니다.
-리포트는 전일({ym}월 {yd}일)까지 수치 기입하였습니다. 참고 부탁드립니다.
+리포트는 전일({yesterday})까지 수치 기입하였습니다. 참고 부탁드립니다.
 
 ---  
 
@@ -285,8 +285,7 @@ def fb(day, path, week, today, yesterday):
 y = today.year,
 m = today.month,
 d = today.day,
-ym = yesterday.month,
-yd = yesterday.day,
+yesterday = yesterday.strftime("%-m월 %d일"),
 )
         for row in df.iloc[:, :].iterrows():
             data = row[1]
@@ -436,7 +435,7 @@ def rw(day, path, today, yesterday):
     y = today.year,
     m = today.month,
     d = today.day,
-    yesterday = yesterday.strftime('%m월 %d일')
+    yesterday = yesterday.strftime('%-m월 %d일')
     )
 
         media = df.columns
@@ -724,7 +723,7 @@ def dive(day, path, week, today, yesterday):
     y = today.year,
     m = today.month,
     d = today.day,
-    yesterday = yesterday.strftime("%m월 %d일"),
+    yesterday = yesterday.strftime("%-m월 %d일"),
     )
     header = header.replace("\n", "<br>")
     filepath = path + 'report.xlsx'
