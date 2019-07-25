@@ -253,9 +253,9 @@ def fb(day, path, week, today, yesterday):
         fb = fb.iloc[1:, :]
         fb.columns = [
             '구분', '날짜', '소재', '광고 타겟', '모수', '예산(vat포함)', '예산', '소진금액',
-            '소진 금액(vat포함)', '광고도달', '노출', '클릭', 'CPL', '링크클릭', 
+            '소진 금액(vat포함)', '광고도달', '노출', '클릭', '링크클릭', 
             'Video Views (3초+)', 'Video Views (100%)',
-            'Reaction(Like)', 'Reaction(PageLike)','Reaction(Share)', 
+            'Reaction(Like)', 'Reaction(Share)', 
             'Reaction(Comment)', 'Reaction(Total)',
             'CTR', 'CPM', 'CPC', '링크클릭CPC', 'CPV', 
             'CPI(인터렉션)', '링크'
@@ -312,7 +312,7 @@ yd = yesterday.day,
         · CPC : {:,.0f}원
         · 링크 클릭 CPC : {:,.0f}원
         · CPI : {:,.0f}원
-        · 컨텐츠 반응 : {:,} Like / {:,} Page Like / {:,} Share / {:,} Comment
+        · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
 
         · 관심사 타겟 정보 :
 
@@ -336,7 +336,6 @@ yd = yesterday.day,
                         hyphen_to_floatzero(data['링크클릭CPC']),
                         hyphen_to_floatzero(data['CPI(인터렉션)']),
                         hyphen_to_zero(data['Reaction(Like)']),
-                        hyphen_to_zero(data['Reaction(PageLike)']),
                         hyphen_to_zero(data['Reaction(Share)']),
                         hyphen_to_zero(data['Reaction(Comment)']),
                         hyphen_to_floatzero(data['CTR']),
@@ -357,7 +356,7 @@ yd = yesterday.day,
         · CPM : {:,.0f}원
         · CPC : {:,.0f}원
         · CPI : {:,.0f}원
-        · 컨텐츠 반응 : {:,} Like / {:,} Page Like / {:,} Share / {:,} Comment
+        · 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
 
         · 관심사 타겟 정보 :
 
@@ -379,7 +378,6 @@ yd = yesterday.day,
                         hyphen_to_floatzero(data['CPC']),
                         hyphen_to_floatzero(data['CPI(인터렉션)']),
                         hyphen_to_zero(data['Reaction(Like)']),
-                        hyphen_to_zero(data['Reaction(PageLike)']),
                         hyphen_to_zero(data['Reaction(Share)']),
                         hyphen_to_zero(data['Reaction(Comment)']),
                         hyphen_to_floatzero(data['CTR']),
