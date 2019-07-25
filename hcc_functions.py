@@ -107,9 +107,6 @@ def yt(day, path, week, today, yesterday):
         """
 
         # print(body)
-        f = codecs.open(path + 'txt/' + '{}_{}_YT.txt'.format(day, week), 'w', encoding='cp949')
-        f.write(body)
-        f.close()
         print('{}_{}_YT.txt'.format(day, week), '생성 완료')
 
     except FileNotFoundError as e:
@@ -241,9 +238,6 @@ def ig(day, path, week, today, yesterday):
 
 
         # print(body)
-        f = codecs.open(path +  'txt/' + '{}_{}_IG.txt'.format(day, week), 'w', encoding='cp949')
-        f.write(body)
-        f.close()
         print('{}_{}_IG.txt'.format(day, week), '생성 완료')
     except FileNotFoundError as e:
         print(e)
@@ -400,9 +394,6 @@ yd = yesterday.day,
 
 
         # print(body)
-        f = codecs.open(path +  'txt/' + '{}_{}_FB.txt'.format(day, week), 'w', encoding='cp949')
-        f.write(body)
-        f.close()
         print('{}_{}_FB.txt'.format(day, week), '생성 완료')
     except FileNotFoundError as e:
         print(e)
@@ -442,7 +433,7 @@ def rw(day, path, today, yesterday):
         body = """안녕하세요,
 퀀텀파이러츠 김소영입니다.
 
-{y}년 {m}월 {d}일 리워드광고 Daily Report 전달드립니다.
+{y}년 {m}월 {d}일 리워드광고 Weekly Report 전달드립니다.
 리포트는 전일({yesterday})까지 수치 기입하였습니다. 참고 부탁드립니다.
 
 ---- 
@@ -491,41 +482,6 @@ def rw(day, path, today, yesterday):
                 )
             body += element
             num += 1
-        body += """[경쟁사 분석 - 신한카드]\n 
-1. 인스타그램
-
-<모니터링 코멘트>
-· 팔로워 감소 추이 이어졌으나 4월 시작과 함께 수치 급상승하였습니다.
-· 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 ,명 증가하고 있습니다.
-· 전일 명 증가했습니다.
-
-
-2. 유튜브
-
-<모니터링 코멘트>
-· 팔로워 증가 추이 계속되고 있습니다.
-· 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
-· 전일 명 증가했습니다.
-
-
-3. 페이스북
-
-<모니터링 코멘트>
-· 팔로워 소량 증가 혹은 감소 추이 이어지고 있습니다.
-· 최근 30일 실적 현재 시점까지 ,명 증가한 상황이며, 일 평균 명 증가하고 있습니다.
-· 전일 명 증가/감소했습니다.
-
-
-데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
-
-감사합니다.
-김소영 드림
-
-        """
-        f = codecs.open(path + 'txt/' + '{}_RW.txt'.format(day), 'w', encoding='cp949')
-        f.write(body)
-        f.close()
-
         print('RW.txt'.format(day), '생성 완료')
 
     except FileNotFoundError as e:
