@@ -264,7 +264,7 @@ def fb(day, path, week, today, yesterday):
         num = 1
         # body = ''
         body = """안녕하세요,
-        퀀텀파이러츠 김소영입니다.
+        퀀텀파이러츠 김희중입니다.
         
         {y}년 {m}월 {d}일 페이스북, 인스타그램, 유튜브 콘텐츠광고 Daily Report 전달해드립니다.
 리포트는 전일({yesterday})까지 수치 기입하였습니다. 참고 부탁드립니다.
@@ -421,7 +421,7 @@ def rw(day, path, today, yesterday):
         gubun = ''
         num = 1
         body = """안녕하세요,
-퀀텀파이러츠 김소영입니다.
+퀀텀파이러츠 김희중입니다.
 
 {y}년 {m}월 {d}일 리워드광고 Weekly Report 전달드립니다.
 리포트는 전일({yesterday})까지 수치 기입하였습니다. 참고 부탁드립니다.
@@ -704,7 +704,7 @@ def get_app_search_ads_body(df, key, yesterday):
 
 def dive(day, path, week, today, yesterday):    
     header = """안녕하세요,
-    퀀텀파이러츠 김소영입니다.
+    퀀텀파이러츠 김희중입니다.
 
     {y}년 {m}월 {d}일 페이스북, 인스타그램, 유튜브 콘텐츠광고 Daily Report 전달해드립니다.
     리포트는 전일({yesterday})까지 수치 기입하였습니다. 참고 부탁드립니다.
@@ -757,7 +757,7 @@ def dive(day, path, week, today, yesterday):
     데일리리포트 관련하여 자세한 사항은 아래 첨부파일 확인 부탁드립니다.
 
     감사합니다.
-    김소영 드림
+    김희중 드림
     """.replace("\n", "<br>")
 
     return header
