@@ -4,6 +4,35 @@
 {% set report = hcc.run(medium, day, week) %}
 
 <body>
+  <script type="text/javascript">
+    function copyStringWithNewLineToClipBoard(id) {
+
+      // Step 1: create a textarea element.
+      // It is capable of holding linebreaks (newlines) unlike "input" element
+      var stringWithNewLines = document.getElementById(id).innerText;
+      const myFluffyTextarea = document.createElement('textarea');
+
+      // Step 2: Store your string in innerHTML of myFluffyTextarea element        
+      myFluffyTextarea.innerHTML = stringWithNewLines;
+
+      // Step3: find an id element within the body to append your myFluffyTextarea there temporarily
+      const parentElement = document.getElementById('temp');
+      parentElement.appendChild(myFluffyTextarea);
+      // Step 4: Simulate selection of your text from myFluffyTextarea programmatically 
+      myFluffyTextarea.select();
+
+      // Step 5: simulate copy command (ctrl+c)
+      // now your string with newlines should be copied to your clipboard 
+      document.execCommand('copy');
+
+      // Step 6: Now you can get rid of your fluffy textarea element
+      parentElement.removeChild(myFluffyTextarea);
+
+      gtag('event', "copy_text", {
+        'event_label': "copy_text_label",
+      });
+    }
+  </script>
   <!-- ========== ABOUT SECTION ========== -->
   <section id="about" name="about"></section>
   <div id="f">
@@ -12,49 +41,18 @@
         <h3>{{ medium.upper() }} 광고 리포트 - {{ day }}</h3>
         <br><br>
         <div class="col-lg-6 col-lg-offset-3">
-          <button id="copybutton" onclick="copyStringWithNewLineToClipBoard('p1')">텍스트 복사</button>
+          <button id="copybutton" class = "copybutton_" onclick="copyStringWithNewLineToClipBoard('p1')">텍스트 복사</button>
           <br><br>
           <div type="text/html">
             <p id="p1">{{ report | safe }}</p>
           </div>
-          <script type="text/javascript">
-            function copyStringWithNewLineToClipBoard(id) {
 
-              // Step 1: create a textarea element.
-              // It is capable of holding linebreaks (newlines) unlike "input" element
-              var stringWithNewLines = document.getElementById(id).innerText;
-              const myFluffyTextarea = document.createElement('textarea');
-
-              // Step 2: Store your string in innerHTML of myFluffyTextarea element        
-              myFluffyTextarea.innerHTML = stringWithNewLines;
-
-              // Step3: find an id element within the body to append your myFluffyTextarea there temporarily
-              const parentElement = document.getElementById('temp');
-              parentElement.appendChild(myFluffyTextarea);
-              // Step 4: Simulate selection of your text from myFluffyTextarea programmatically 
-              myFluffyTextarea.select();
-
-              // Step 5: simulate copy command (ctrl+c)
-              // now your string with newlines should be copied to your clipboard 
-              document.execCommand('copy');
-
-              // Step 6: Now you can get rid of your fluffy textarea element
-              parentElement.removeChild(myFluffyTextarea);
-              
-              gtag('event', "copy_text", {
-              'event_label': "copy_text_label",
-              });
-            }
-          </script>
-          <button id="copybutton" onclick="copyStringWithNewLineToClipBoard('p1')">텍스트 복사</button>
-
+          <button id="copybutton" class = "copybutton_" onclick="copyStringWithNewLineToClipBoard('p1')">텍스트 복사</button>
           <script>
-            $('#copybutton').click(function () {
+            $('.copybutton_').click(function () {
               alert('복사되었습니다.');
             });
           </script>
-
-
           <div id="temp"></div>
         </div>
       </div>
