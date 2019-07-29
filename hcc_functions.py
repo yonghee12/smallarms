@@ -505,7 +505,7 @@ def get_fbig_body(df, key):
         '구분', '날짜', '소재', '광고 타겟', '모수', '"예산(vat포함)"', 
         '예산', '소진금액', '"소진금액(vat포함)"', '광고도달', '노출', '클릭', '링크클릭', 
         '"Video Views(3초+)"', '"Video Views(100%)"', 'Like', 'Share', 'Comment', 
-        'Total', 'CTR', 'CPM', 'CPC', '링크클릭CPC', 'CPV', 'CPI(인터렉션)'
+        'Save', 'Total', 'CTR', 'CPM', 'CPC', '링크클릭CPC', 'CPV', 'CPI(인터렉션)'
     ]
     df.columns = columns
     df = df.iloc[1:, :]
@@ -541,7 +541,7 @@ def get_fbig_body(df, key):
 · CPC : {:,.0f}원
 · 링크 클릭 CPC : {:,.0f}원
 · CPI : {:,.0f}원
-· 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment
+· 컨텐츠 반응 : {:,} Like / {:,} Share / {:,} Comment / {:,} Save
 
 · 관심사 타겟 정보 :
 
@@ -567,6 +567,7 @@ def get_fbig_body(df, key):
             hyphen_to_zero(data['Like']),
             hyphen_to_zero(data['Share']),
             hyphen_to_zero(data['Comment']),
+            hyphen_to_zero(data['Save']),
             hyphen_to_floatzero(data['CTR']),
             hyphen_to_floatzero(data['CPC']),
             hyphen_to_floatzero(data['CPI(인터렉션)']),
