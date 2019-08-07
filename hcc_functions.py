@@ -464,7 +464,7 @@ def rw(day, path, today, yesterday):
                 conv = hyphen_to_zero(df.loc['전환수', medium]),
                 conv_real = hyphen_to_zero(df.loc['실제 전환수(추정치)', medium]),
                 remaining_rate = hyphen_to_floatzero(df.loc["기간 총 잔존율", medium]),
-                accomplished_rate = hyphen_to_floatzero(df.loc["목표 달성률(7월)", medium]),
+                accomplished_rate = hyphen_to_floatzero(df.loc["목표 달성률({}월)".format(today.month), medium]),
                 fan = hyphen_to_zero(df.loc["팬 수({}기준)".format(yesterday.strftime("%m/%d")), medium])
     #             ee = df.loc['기간 총 잔존율', medium],
     #             ff = df.loc['목표 달성률({}월)'.format(today.month), medium],
